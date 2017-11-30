@@ -15,9 +15,9 @@ app.listen(3000);
 ```
 
 ### TODO
-- [ ] app
-- [ ] listen
-- [ ] middleware
+- [] app
+- [x] listen
+- [x] middleware
 - [ ] async/await
 - [ ] router
 - [ ] bodyParser
