@@ -1,6 +1,5 @@
 const http = require('http');
 
-
 module.exports = class Koa {
   constructor() {
 
@@ -20,17 +19,37 @@ module.exports = class Koa {
     const compose = (middlewares) => {
       return (context) => {
         let index = 0;
-        function next() {
-          middlewares[index++](context, next);
+        // 为了每个中间件都可以是异步调用，即 `await next()` 这种写法，每个 next 都要返回一个 promise 对象
+        
+        function next(index) {
+          const func = middlewares[index];
+          return new Promise((resolve, reject) => {
+            if (index >= middlewares.length) return reject('next is inexistence');
+            resolve(func(context, () => next(index + 1)));
+          });
         }
-        next();
+        return next(index);
       }
     }
     const fn = compose(this.middlewares);
     return (req, res) => {
-      this.context.req = req;
-      this.context.res = res;
-      fn(this.context);
+      try {
+        this.context.req = req;
+        this.context.res = res;
+        fn(this.context).then((x) => {
+          console.log('ok then', x);
+          this.response(this.context);
+        });
+
+      } catch(e) {
+        console.log(e, 'eee');
+      }
     }
+  }
+
+  response(ctx) {
+    const { res, body } = ctx;
+    console.log(body, 'body');
+    res.end(body);
   }
 }
