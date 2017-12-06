@@ -2,8 +2,23 @@ const Koa = require('../src/index');
 const fs = require('fs');
 const app = new Koa();
 const bodyParse = require('../src/bodyParse');
+const cookieParse = require('../src/cookieParse');
 
 app.use(bodyParse());
+app.use(cookieParse());
+
+// cookie
+app.use(async (ctx, next) => {
+  console.log(ctx.cookies);
+  ctx.cookies().set('a', 'b', {
+    httpOnly: true,
+    path: '/',
+    maxAge: 10,
+  })
+  ctx.cookies().set('c', 'd', {
+    httpOnly: true,
+  })
+})
 
 // logger
 app.use(async (ctx, next) => {
@@ -16,6 +31,7 @@ app.use(async (ctx, next) => {
 app.use(async (ctx, next) => {
   // TODO
   ctx.body = 'hello world';
+  ctx.res.statusCode = 200;
   await next();
   console.log('wanle');
 });

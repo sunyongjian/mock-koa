@@ -52,13 +52,15 @@ module.exports = class Koa {
   handleCtx(req, res) {
     const { context } = this;
 
-    context.req = req;
-    context.res = res;
+    context.req = context.request = req;
+    context.res = context.response = res;
+    context.headers = [];
   }
 
   response(ctx) {
-    const { res, body } = ctx;
+    const { res, body, headers } = ctx;
     console.log(body, 'body');
+    if (headers) res.setHeader('Set-Cookie', ctx.headers);//TODO 最后 headers 及 cookie 的设置在哪比较好
     res.end(body);
   }
 }

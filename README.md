@@ -15,13 +15,14 @@ app.listen(3000);
 ```
 
 ### TODO
-- [ ] app
+- [x] simple-app
 - [x] listen
 - [x] middleware
-- [ ] async/await
+- [x] async/await
 - [ ] router
-- [ ] bodyParser
+- [x] bodyParser
 - [ ] static
 - [ ] cookie
 - [ ] session
 - [ ] render template
+- [ ] error handling
