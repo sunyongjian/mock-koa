@@ -1,12 +1,13 @@
 const Koa = require('../src/index');
 const fs = require('fs');
 const app = new Koa();
+const bodyParse = require('../src/bodyParse');
 
-
+app.use(bodyParse());
 
 // logger
 app.use(async (ctx, next) => {
-  console.log(ctx.req, 'request');
+  console.log(ctx.req.body, 'body');
   next();
 })
 
