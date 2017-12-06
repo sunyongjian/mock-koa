@@ -22,7 +22,7 @@ app.listen(3000);
 - [ ] router
 - [x] bodyParser
 - [ ] static
-- [ ] cookie
+- [x] cookie
 - [ ] session
 - [ ] render template
 - [ ] error handling
