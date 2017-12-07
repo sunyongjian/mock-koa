@@ -52,5 +52,5 @@ module.exports = () => async function(ctx, next) {
   const reqBody = await getReqData(ctx.req);
   const body = parseBody(ctx, reqBody);
   ctx.req.body = body;
-  next();
+  await next();
 }

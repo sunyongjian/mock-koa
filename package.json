@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/sunyongjian/mock-koa#readme",
   "dependencies": {
+    "mime-types": "^2.1.17",
+    "mz": "^2.7.0",
     "querystring": "^0.2.0"
   }
 }

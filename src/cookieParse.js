@@ -48,5 +48,5 @@ module.exports = () => async function (ctx, next) {
   }
 
   ctx.cookies = cookieHandle;
-  next();
+  await next();
 }

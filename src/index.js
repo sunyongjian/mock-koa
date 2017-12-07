@@ -1,4 +1,6 @@
 const http = require('http');
+const url = require('url');
+const qs = require('querystring');
 
 module.exports = class Koa {
   constructor() {
@@ -37,6 +39,7 @@ module.exports = class Koa {
       try {
         this.handleCtx(req, res);
         this.context.res.statusCode = 404;
+        this.context.body = 'not fount';
 
         fn(this.context).then((x) => {
           console.log('ok then', x);
@@ -51,16 +54,23 @@ module.exports = class Koa {
 
   handleCtx(req, res) {
     const { context } = this;
-
+    const { pathname, query } = url.parse(req.url);
+    const queryKv = qs.parse(query);
     context.req = context.request = req;
     context.res = context.response = res;
+    
     context.headers = [];
+    context.path = pathname;
+    context.query = queryKv;
   }
 
   response(ctx) {
-    const { res, body, headers } = ctx;
-    console.log(body, 'body');
+    const { res, body, headers, status, type } = ctx;
+    console.log(body, status, type, 'body');
     if (headers) res.setHeader('Set-Cookie', ctx.headers);//TODO 最后 headers 及 cookie 的设置在哪比较好
+    if (type) res.setHeader('Content-Type', type);
+    if (status) res.statusCode = status;
+
     res.end(body);
   }
 }
