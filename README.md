@@ -67,7 +67,7 @@ app.listen(port, () => {
 - [x] listen
 - [x] middleware
 - [x] async/await
-- [ ] router
+- [x] router
 - [x] bodyParser
 - [x] static
 - [x] cookie
