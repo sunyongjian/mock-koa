@@ -23,7 +23,6 @@ router.get('/user', (ctx) => {
 });
 
 router.get('/user/:name/:age', (ctx) => {
-  ctx.body = 'aa';
   const { name, age } = ctx.params;
   ctx.body = `${ctx.method}-${name}-${age}`;
 });

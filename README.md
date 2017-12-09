@@ -18,6 +18,28 @@ app.use(bodyParse());
 app.use(cookieParse());
 app.use(static(path.join(__dirname + '/static')));
 
+
+router.get('/user/:name/:age', (ctx) => {
+  const { name, age } = ctx.params;
+  ctx.body = `${ctx.method}-${name}-${age}`;
+});
+
+router.delete('/user/:id', async(ctx) => {
+  console.log(ctx.params, 'yoyoyo');
+  // test async delete;
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      console.log('delete');
+      resolve()
+    }, 1000)
+  });
+  ctx.body = `${ctx.method}-${ctx.params.id}`;
+});
+
+// inject routes;
+app.use(router.routes());
+
+
 // cookie
 app.use(async (ctx, next) => {
   ctx.cookies().set('a', 'b', {
