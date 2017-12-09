@@ -14,6 +14,32 @@ app.use(bodyParse());
 app.use(cookieParse());
 app.use(static(path.join(__dirname + '/static')));
 
+router.get('/', (ctx) => {
+  ctx.body = '首页';
+});
+
+router.get('/user', (ctx) => {
+  ctx.body = 'user';
+});
+
+router.get('/user/:name/:age', (ctx) => {
+  ctx.body = 'aa';
+  const { name, age } = ctx.params;
+  ctx.body = `${ctx.method}-${name}-${age}`;
+});
+
+router.delete('/user/:id', async(ctx) => {
+  console.log(ctx.params, 'yoyoyo');
+  // test async delete;
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      console.log('delete');
+      resolve()
+    }, 1000)
+  });
+  ctx.body = `${ctx.method}-${ctx.params.id}`;
+})
+
 app.use(router.routes());
 // cookie
 app.use(async (ctx, next) => {
@@ -28,9 +54,6 @@ app.use(async (ctx, next) => {
   await next();
 })
 
-router.get('/', async(ctx) => {
-  ctx.body = 'Hello World'; 
-});
 // logger
 app.use(async (ctx, next) => {
   console.log(ctx.req.body, 'body');

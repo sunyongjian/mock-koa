@@ -58,7 +58,7 @@ module.exports = class Koa {
     const queryKv = qs.parse(query);
     context.req = context.request = req;
     context.res = context.response = res;
-    
+
     context.headers = [];
     context.path = pathname;
     context.method = req.method;
