@@ -61,6 +61,7 @@ module.exports = class Koa {
     
     context.headers = [];
     context.path = pathname;
+    context.method = req.method;
     context.query = queryKv;
   }
 

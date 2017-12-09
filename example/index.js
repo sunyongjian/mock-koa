@@ -5,11 +5,16 @@ const app = new Koa();
 const bodyParse = require('../src/bodyParse');
 const cookieParse = require('../src/cookieParse');
 const static = require('../src/static');
+const Router = require('../src/koaRouter');
+
+const router = new Router();
+console.log(router, 'router');
 
 app.use(bodyParse());
 app.use(cookieParse());
 app.use(static(path.join(__dirname + '/static')));
 
+app.use(router.routes());
 // cookie
 app.use(async (ctx, next) => {
   ctx.cookies().set('a', 'b', {
@@ -23,6 +28,9 @@ app.use(async (ctx, next) => {
   await next();
 })
 
+router.get('/', async(ctx) => {
+  ctx.body = 'Hello World'; 
+});
 // logger
 app.use(async (ctx, next) => {
   console.log(ctx.req.body, 'body');
