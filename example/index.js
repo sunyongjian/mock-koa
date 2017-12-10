@@ -6,6 +6,8 @@ const bodyParse = require('../src/bodyParse');
 const cookieParse = require('../src/cookieParse');
 const static = require('../src/static');
 const Router = require('../src/koaRouter');
+const views = require('../src/koaViews');
+
 
 const router = new Router();
 console.log(router, 'router');
@@ -13,6 +15,15 @@ console.log(router, 'router');
 app.use(bodyParse());
 app.use(cookieParse());
 app.use(static(path.join(__dirname + '/static')));
+app.use(views(path.join(__dirname + '/views'), {
+  ext: 'html'
+}));
+
+app.use(async (ctx, next) => {
+  let title = 'hello koa2'
+  await ctx.render('index');
+  next();
+})
 
 router.get('/', (ctx) => {
   ctx.body = '首页';
