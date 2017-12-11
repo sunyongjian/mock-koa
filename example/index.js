@@ -16,12 +16,16 @@ app.use(bodyParse());
 app.use(cookieParse());
 app.use(static(path.join(__dirname + '/static')));
 app.use(views(path.join(__dirname + '/views'), {
-  ext: 'html'
+  ext: 'ejs'
 }));
 
 app.use(async (ctx, next) => {
   let title = 'hello koa2'
-  await ctx.render('index');
+  await ctx.render('index', {
+    title,
+    text: title,
+    list: ['北京', '上海', '广东']
+  });
   next();
 })
 

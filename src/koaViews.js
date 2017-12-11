@@ -1,5 +1,6 @@
 const fs = require('mz/fs');
 const path = require('path');
+const ejs = require('ejs');
 
 //TODO locals
 const views = (dir, options = {}) => async (ctx, next) => {
@@ -14,10 +15,11 @@ const views = (dir, options = {}) => async (ctx, next) => {
       
       if(ctx.path === '/' + pathname) {
         const body = await fs.readFile(p)
-        console.log(body, 'match');
-        ctx.body = body;
+        const string = ejs.render(body.toString(), locals);
+        ctx.body = string;
       }
     } catch(e) {
+      console.log(e);
     }
     
   }

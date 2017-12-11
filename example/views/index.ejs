@@ -5,11 +5,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title><%=title %></title>
 </head>
 
 <body>
-  哈哈哈
+  <h2><%=text %></h2>
+  <ul>
+    <% for (var i=0; i<list.length; i++) { %>
+      <li>
+          <%= list[i] %>
+      </li>
+      <% } %>
+  </ul>
+  
 </body>
 <script>
 

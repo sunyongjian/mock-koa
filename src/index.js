@@ -69,9 +69,13 @@ module.exports = class Koa {
     const { res, body, headers, status, type } = ctx;
     console.log(body, status, type, 'body');
     if (headers) res.setHeader('Set-Cookie', ctx.headers);//TODO 最后 headers 及 cookie 的设置在哪比较好
-    if (type) res.setHeader('Content-Type', type);
+    if (type) {
+      res.setHeader('Content-Type', type);
+    } else {
+      res.setHeader('Content-Type', 'text/html;charset=utf-8');
+    }
+    if (body) res.statusCode = 200;
     if (status) res.statusCode = status;
-
     res.end(body);
   }
 }
