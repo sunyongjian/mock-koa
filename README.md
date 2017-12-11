@@ -13,11 +13,29 @@ const app = new Koa();
 const bodyParse = require('../src/bodyParse');
 const cookieParse = require('../src/cookieParse');
 const static = require('../src/static');
+const Router = require('../src/koaRouter');
+const views = require('../src/koaViews');
+
+const router = new Router();
+
 
 app.use(bodyParse());
 app.use(cookieParse());
 app.use(static(path.join(__dirname + '/static')));
 
+app.use(views(path.join(__dirname + '/views'), {
+  ext: 'ejs'
+}));
+
+app.use(async (ctx, next) => {
+  let title = 'hello koa2'
+  await ctx.render('index', {
+    title,
+    text: title,
+    list: ['北京', '上海', '广东']
+  });
+  next();
+});
 
 router.get('/user/:name/:age', (ctx) => {
   const { name, age } = ctx.params;
@@ -94,5 +112,5 @@ app.listen(port, () => {
 - [x] static
 - [x] cookie
 - [ ] session
-- [ ] render template
+- [x] render template
 - [ ] error handling
