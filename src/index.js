@@ -67,7 +67,7 @@ module.exports = class Koa {
 
   response(ctx) {
     const { res, body, headers, status, type } = ctx;
-    console.log(body, status, type, 'body');
+    console.log(body, headers, 'headers', status, type, 'set---body');
     if (headers) res.setHeader('Set-Cookie', ctx.headers);//TODO 最后 headers 及 cookie 的设置在哪比较好
     if (type) {
       res.setHeader('Content-Type', type);

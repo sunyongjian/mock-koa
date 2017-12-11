@@ -54,6 +54,7 @@ class Router {
       });
 
       if (result && result.length) {
+        console.log(result, 'ggg');
         await result[0].stack(ctx, next);
       } else {
         await next();
