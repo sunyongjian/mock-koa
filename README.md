@@ -1,7 +1,8 @@
-### mock-koa
-简单实现 koa，能达到正常的使用。
+### Introduction
+Read Koa source code, and achieve a simple koa.
 
-### start
+
+### Example
 
 ```js
 // example

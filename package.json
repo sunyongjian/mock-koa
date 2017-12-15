@@ -21,6 +21,7 @@
   "homepage": "https://github.com/sunyongjian/mock-koa#readme",
   "dependencies": {
     "ejs": "^2.5.7",
+    "koa-session": "^5.5.1",
     "mime-types": "^2.1.17",
     "mz": "^2.7.0",
     "path-to-regexp": "^2.1.0",

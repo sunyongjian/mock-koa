@@ -4,11 +4,14 @@ const path = require('path');
 const app = new Koa();
 const bodyParse = require('../src/bodyParse');
 const cookieParse = require('../src/cookieParse');
+const session = require('koa-session');
 const static = require('../src/static');
 const views = require('../src/koaViews');
 const router = require('./routes');
 
-
+const CONFIG = {
+  key: 'S_UID'
+}
 app.use(bodyParse());
 app.use(cookieParse());
 app.use(static(path.join(__dirname + '/static')));
