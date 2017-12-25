@@ -1,9 +1,17 @@
 ### Introduction
 Read Koa source code, and achieve a simple koa.
 
-
 ### Example
+#### scripts
+```
+git clone https://github.com/sunyongjian/mock-koa.git
 
+yarn
+
+node example/index.js
+```
+
+#### usage
 ```js
 // example
 const Koa = require('../src/index');
