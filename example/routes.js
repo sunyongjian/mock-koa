@@ -15,6 +15,13 @@ router.get('/index', async (ctx, next) => {
   next();
 });
 
+router.get('/error', async (ctx, next) => {
+  if(1) {
+    throw new Error('错误测试')
+  }
+  await next();
+})
+
 router.get('/login', async (ctx, next) => {
   await ctx.render('login', {
     title: '登录页',

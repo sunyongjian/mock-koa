@@ -12,12 +12,26 @@ const router = require('./routes');
 const CONFIG = {
   key: 'S_UID'
 }
+
+const errorCatch = async(ctx, next) => {
+  try {
+    await next();
+  } catch(e) {
+    console.log(e, e.message, 'error');
+    ctx.body = 'error';
+  }
+}
+// error handle
+app.use(errorCatch);
+
+
 app.use(bodyParse());
 app.use(cookieParse());
 app.use(static(path.join(__dirname + '/static')));
 app.use(views(path.join(__dirname + '/views'), {
   ext: 'ejs'
 }));
+
 
 // routes
 app.use(router.routes());
