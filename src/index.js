@@ -24,10 +24,14 @@ module.exports = class Koa {
 
       function next(index) {
         const func = middlewares[index];
-        return new Promise((resolve, reject) => {
-          if (index >= middlewares.length) return reject('next is inexistence');
-          resolve(func(context, () => next(index + 1)));
-        });
+        try {
+          return new Promise((resolve, reject) => {
+            if (index >= middlewares.length) return reject('next is inexistence');
+            resolve(func(context, () => next(index + 1)));
+          });
+        } catch(err) {
+          return Promise.reject(err);
+        }
       }
       return next(index);
     }
